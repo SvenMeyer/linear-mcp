@@ -176,7 +176,7 @@ export class LinearAuth {
         expiresAt: Number.MAX_SAFE_INTEGER, // PATs don't expire
       };
       this.linearClient = new LinearClient({
-        accessToken: config.accessToken,
+        apiKey: config.accessToken, // Use apiKey for PAT
       });
     } else {
       // OAuth flow
