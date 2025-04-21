@@ -22,13 +22,15 @@ The server supports two authentication methods:
 
 #### Personal Access Token (Recommended)
 
-1. Go to Linear: Settings > API > OAuth application > "Cline MCP"
-2. Under "Developer Token", click "Create & copy token"
-3. Select "Application"
-3. Add the token to your `.env` file:
+1. Login into Linear Website and click the workspace button/dropdown in the top left
+2. Select `Settings` > `Security & access`
+3. In the section `Personal API keys` click `New API key`
+4. Give it a name, like `Cline-MCP` and define the access permissions. You might want to choose `Only select permissions...` and select all/most of them but not `Admin`
+4. Add the token to your `.env` file (Note: The server currently does **not** automatically load this file. You would need to modify `src/index.ts` to use a library like `dotenv` for this method to work):
    ```
    LINEAR_ACCESS_TOKEN=your_personal_access_token
    ```
+   **Important:** For integration with the VS Code Cline extension, see Step 4 below.
 
 #### OAuth Flow (Alternative) ***NOT IMPLEMENTED***
 
@@ -64,9 +66,10 @@ The server supports two authentication methods:
      "mcpServers": {
        "linear": {
          "command": "node",
-         "args": ["/path/to/linear-mcp/build/index.js"],
+         "args": ["/full/path/to/your/linear-mcp/build/index.js"], # <-- Replace with the actual full path
          "env": {
-           "LINEAR_ACCESS_TOKEN": "your_personal_access_token"
+           # For PAT authentication with the VS Code extension, the token MUST be provided here:
+           "LINEAR_ACCESS_TOKEN": "your_personal_access_token" 
          },
          "disabled": false,
          "autoApprove": []
